@@ -22,11 +22,7 @@ When the relevant evidence is not accessible, request the smallest pointer or so
 
 ## Build an attackable working hypothesis
 
-Present a concise hypothesis only after there is enough evidence to choose a frame; an established goal needs no repeated discovery interview:
-
-1. **Outcome** — the change the user is trying to create, not merely the requested mechanism.
-2. **Named traps** — one or two task-specific ways the current framing could fail.
-3. **Current sketch** — a proportionate design, its affected relationships, and consequential decisions tagged internally as `confirmed`, `assumed`, or unresolved.
+Present a concise hypothesis only after there is enough evidence to choose a frame; an established goal needs no repeated discovery interview. Say the change the user is trying to create, not merely the requested mechanism, and a proportionate design with the choices that would change it. Mention a concrete way the current framing fails only when the evidence shows one; do not invent a trap to fill a slot. Tag consequential decisions internally as `confirmed`, `assumed`, or unresolved.
 
 If the request is a solution (“add Redis”, “make a dashboard”, “book a villa”), trace it back to the problem and test whether the solution actually serves it. Do not spend the session tuning parameters on top of an unexamined premise.
 
@@ -64,7 +60,7 @@ Each question should make three things clear:
 
 If only the recommendation changes based on another independent answer, keep both in the batch and make the recommendation conditional. If the question's existence or option set changes, defer it to the next turn.
 
-For taste, wording, naming, interaction, or other recognition-based choices, show 2–4 concrete alternatives rather than asking the user to invent a description.
+For taste, wording, naming, interaction, or other recognition-based choices, show concrete alternatives the user can react to rather than asking them to invent a description.
 
 ## Follow the answer, not a checklist
 
@@ -94,4 +90,4 @@ Clarify completes when every material fork is:
 
 Completing a clarification pass does not by itself authorize implementation; the readiness check in the main Skill still applies.
 
-Render a Clarity Memo, Decision Brief, or Requirements Brief only when it helps the user or downstream consumer. Confirmation applies to the shared decisions, not to a mandatory document shape.
+Render the shared decisions only when that helps the user or a downstream consumer. Confirmation applies to the decisions, not to a document shape.
