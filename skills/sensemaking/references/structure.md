@@ -2,7 +2,7 @@
 
 STRUCTURE preserves the evolving understanding across investigation, explanation, dialogue, and design. It prevents a polished final summary from erasing exact decisions, negative requirements, revised assumptions, or unresolved risk.
 
-It does not discover, clarify, or challenge by itself. It records shared decisions already established by those modes, prior conversation, or an authoritative source.
+It does not discover, clarify, or challenge by itself. It records shared decisions already established by those methods, prior conversation, or an authoritative source.
 
 STRUCTURE-only is intentionally narrow: use it to preserve, reconcile, or hand off shared understanding about directions, decisions, assumptions, boundaries, and risks after the thinking is already done. It is not a router for arbitrary rewriting, formatting, file organization, data conversion, summarization, or content transformation; clear requests for those results should be executed directly.
 
