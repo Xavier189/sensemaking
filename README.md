@@ -62,8 +62,8 @@ Discover、Clarify、Challenge 是 Agent 按需使用的方法，不是用户必
 ## 安装与触发
 
 ```bash
-git clone https://github.com/Xavier189/dig-skill.git
-cd dig-skill
+git clone https://github.com/Xavier189/sensemaking.git
+cd sensemaking
 mkdir -p ~/.agents/skills ~/.claude/skills
 ln -s "$(pwd)/skills/sensemaking" ~/.agents/skills/sensemaking
 ln -s "$(pwd)/skills/sensemaking" ~/.claude/skills/sensemaking
