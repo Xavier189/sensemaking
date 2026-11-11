@@ -21,39 +21,17 @@ Use questions only when:
 - an assumption cannot be verified externally;
 - the user must accept an external commitment or irreversible consequence.
 
-## Select the relevant lenses
+## Select what could change the conclusion
 
-Choose the few lenses most likely to change the conclusion. Do not print or mechanically fill this list:
+Test only the claims that could change the conclusion: whether the proposal solves the actual problem or a proxy, whether its parts contradict, what must be true and what supports it, what it excludes and what happens at the limits, how it fails and who notices, who benefits or can undermine it, whether important terms match reality, how anyone would agree it worked, what is costly to undo, and whether a simpler approach differs in consequences.
 
-- **Goal fit** — does the proposal solve the actual problem, or optimize a proxy?
-- **Internal consistency** — do requirements, terms, states, or sections contradict one another?
-- **Assumptions and evidence** — what must be true, and what supports it?
-- **Boundaries and negative cases** — what is explicitly excluded; what happens at limits?
-- **Failure and recovery** — how does it fail, who notices, and can it recover safely?
-- **Stakeholders and incentives** — who benefits, pays, operates, approves, or can undermine it?
-- **Terminology and domain model** — are important terms vague, overloaded, or inconsistent with reality?
-- **Success and testability** — could two reasonable people agree whether it worked?
-- **Reversibility and option value** — what is costly to undo; what experiment could buy information cheaply?
-- **Alternatives** — is there a simpler framing or a materially different approach worth comparing?
-
-Apply named methods only when they sharpen the relevant lens:
-
-- pre-mortem for plausible failure paths;
-- inversion for hidden enabling conditions;
-- counterexample for universal claims and boundary rules;
-- first principles for inherited assumptions;
-- stakeholder mapping for conflicting incentives;
-- prototype or simulation for behavior the user must see to judge.
+A failure story, a reversed assumption, a counterexample, a check of an inherited premise, a look at conflicting incentives, or a small simulation is useful only when it exposes something the direct reading missed. Describe what you found.
 
 ## Communicate findings
 
 Make each material finding's defect, basis, consequence, and smallest useful correction or experiment clear. Include an owner decision only when a trade-off needs one. These are content requirements, not mandatory headings or a five-part form.
 
-Use severity sparingly:
-
-- `blocking` — proceeding would contradict the goal, violate a hard constraint, or create an unacceptable irreversible risk;
-- `material` — likely to cause rework, failure, or a different outcome;
-- `watch` — worth recording but not worth delaying work.
+Say what breaks if a finding is ignored, and whether proceeding would contradict the goal, change the outcome, or only be worth remembering.
 
 Connect each proposed correction to the requested outcome. Separate necessary corrections, trade-offs for the user, and independent improvements; do not promote a legacy weakness into mandatory scope without showing why this change depends on fixing it.
 
@@ -71,6 +49,6 @@ Completion depends on what the user requested:
 
 - **Assessment or recommendations:** complete when the relevant claims have been examined and supported findings, consequences, recommendations, and evidence limits have been delivered. Owner choices may remain open and recommendations conditional; user acceptance of each finding is not required. If no material defect is found, state the scope and basis of that conclusion.
 - **Resolve or revise the proposal together:** continue until material findings are corrected, rejected with rationale, delegated, explicitly deferred with their consequences, or accepted as risks. A decision outside the agent's authority remains open until its owner resolves or defers it.
-- **Review followed by authorized execution:** resolve blocking findings or owner choices, then complete the authorized work and its necessary verification. Preserve non-blocking concerns without turning them into additional approval gates.
+- **Review followed by authorized execution:** resolve findings that would make proceeding contradict the goal, violate a hard constraint, or create an unacceptable irreversible risk, and resolve owner choices, then complete the authorized work and its necessary verification. Preserve the other concerns without turning them into additional approval gates.
 
 Delivering an assessment does not mark its recommendations as confirmed or its risks as accepted. Render a report or revised proposal only when it serves the requested deliverable.

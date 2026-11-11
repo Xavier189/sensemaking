@@ -65,64 +65,13 @@ Suggested record:
 
 Stable IDs are useful only when downstream artifacts need coverage checks. Do not burden a short conversation with ledger ceremony.
 
-## Renderers
+## Rendering
 
-Choose the lightest artifact that serves the user.
+Choose the lightest rendering that serves the user, in ordinary prose. Use the relevant information-model dimensions and include a state label wherever a reader might mistake an assumption for a requirement. Keep the same state semantics when the work is not a product requirement, without forcing PRD language.
 
-### Direction Map
+A handoff snapshot is only for another agent, tool, session, or durable artifact. Say what can now happen, what to carry forward, the assumptions, deferred items and accepted risks, the boundaries, and the success evidence. What can happen next is a possibility, such as delivery, more evidence, a prototype, design, coordination, domain review, or stop—not a required workflow. Skip the snapshot when the conversation itself is enough.
 
-```markdown
-## Starting point
-## Candidate directions
-## Comparison criteria
-## Blind spots learned
-## Current direction or next experiment
-## Still open
-```
-
-### Clarity Memo
-
-```markdown
-## Intent
-## Confirmed decisions
-## Boundaries and constraints
-## Success evidence
-## Assumptions and open items
-```
-
-### Challenge Report
-
-```markdown
-## What holds up
-## Blocking findings
-## Material findings
-## Recommended revisions
-## Accepted risks and owner decisions
-```
-
-### Requirements Brief
-
-Use the relevant information-model sections and include state labels wherever a reader might mistake an assumption for a requirement.
-
-### Decision Brief
-
-Use the relevant information-model sections when the work is not naturally expressed as product or software requirements. Preserve the same state semantics without forcing the result into PRD language.
-
-### Handoff Snapshot
-
-Use only when another agent, tool, session, or durable artifact must consume the result:
-
-```markdown
-## Ready state
-## Carry forward
-## Assumptions, deferred items, and accepted risks
-## Boundaries
-## Success evidence
-```
-
-`Ready state` says what can now happen, not which workflow must happen. It may indicate direct delivery, evidence gathering, prototype, design, coordination planning, domain review, or stop. Omit this renderer when the conversation itself is sufficient.
-
-A PRD, spec, ADR, user-story set, or implementation-plan input is a renderer requested by the user or downstream harness. It is not the internal reasoning model and not an automatic sensemaking output.
+A PRD, spec, ADR, user-story set, or implementation-plan input is something the user or downstream harness asked for. It is not the internal reasoning model and not an automatic sensemaking output.
 
 ## Persistence
 
@@ -131,17 +80,11 @@ Do not write files by default. Persist only when the user or an authorized harne
 Choose the carrier by the continuity need:
 
 - same agent and session: keep the state in conversation context;
-- another agent in the same session: include an inline Handoff Snapshot in the dispatch message;
+- another agent in the same session: include an inline handoff snapshot in the dispatch message;
 - another session, a long-running effort, or an audit trail: persist the snapshot in the project's file, issue, or task-state convention.
 
-Rendering a Handoff Snapshot and writing a file are separate actions. Never write a file merely because sensemaking ran. A narrow skill or a subagent is also not a persistence mechanism: a skill supplies reusable capability, an agent performs work, and a durable artifact carries state across time.
+Rendering a handoff snapshot and writing a file are separate actions. Never write a file merely because sensemaking ran. A narrow skill or a subagent is also not a persistence mechanism: a skill supplies reusable capability, an agent performs work, and a durable artifact carries state across time.
 
 When resuming from a persisted snapshot, preserve its decisions and boundaries but verify drift-prone facts and current implementation state before acting.
 
-Example locations for a code repository when no project convention overrides them:
-
-- `docs/discovery/YYYY-MM-DD-<slug>.md`
-- `docs/clarity/YYYY-MM-DD-<slug>.md`
-- `docs/challenges/YYYY-MM-DD-<slug>.md`
-
-For a notes vault, personal project, operations workspace, or ordinary folder, use its established organization instead of creating a `docs/` hierarchy merely because sensemaking ran.
+Use the project's existing file, issue, or folder organization. Do not create a `docs/` hierarchy merely because sensemaking ran.

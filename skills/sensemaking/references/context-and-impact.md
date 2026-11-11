@@ -29,7 +29,7 @@ When a change's safety rests on one or two facts, name them and push each as far
 ## Turn gaps into the appropriate next move
 
 - **Discoverable fact:** inspect or research it, including authoritative documentation for unfamiliar behavior.
-- **Uncertain mechanism:** state competing hypotheses and choose a small discriminating probe within authorization.
+- **Uncertain mechanism:** state competing hypotheses and choose a small discriminating probe, using the main skill's rule for when a probe needs no extra approval.
 - **Missing knowledge:** explain the mechanism using this task's consequences. A comparison or counterexample often gives the user a better basis than more questions.
 - **User-owned choice:** describe realistic outcomes and ask for the value, business rule, or commitment that distinguishes them.
 - **Routine implementation detail:** use established constraints and reversible defaults; disclose assumptions when they affect interpretation.

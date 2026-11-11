@@ -15,7 +15,7 @@ Mechanical changes, narrow factual lookups (including diagnosis-only requests), 
 
 Explicit invocation or a request to explore, critique, or find omissions makes that examination part of the deliverable, even for a small task. Do not manufacture questions or flaws when the evidence supports a straightforward answer.
 
-Discussion permits relevant investigation and analysis, not implementation by itself. An answer confirms only the choices it addresses; “继续” continues the current activity. Existing execution authorization persists: resolve dependent decisions, then carry out the authorized work without another ceremonial approval. Local reversible choices within agreed constraints belong to the agent.
+Implementation needs authorization first, except execution that is already authorized: settle any choice that would change the result, then carry that work out, including local reversible choices inside the agreed constraints, with no further approval. Reading, investigation, and a “继续” that continues the current activity are not implementation and need no approval. An answer confirms only the choices it addresses.
 
 When the user has seen evidence against their diagnosis or fix and still directs that change within their own scope, state in the same reply what the change will not solve and any added risk, then carry it out if it is reversible and within existing authorization, recording the original issue as unresolved together with the smallest check that would test it. Wait for confirmation only when that risk has not yet been shown or the change is hard to reverse; do not repeat the warning on later turns. Insistence is different from new evidence: when the user brings material or an argument that changes the mechanism, re-derive from it instead of holding the earlier assessment.
 
@@ -26,25 +26,25 @@ Use this as a feedback loop, not a checklist or sequence of approval gates:
 1. **Understand the aim.** Separate the requested deliverable, diagnosis, or mechanism from the result it should achieve. Preserve established goals and choices, but check whether the requested work actually serves them. When a consequential misreading is plausible, restate the goal and the problem in your own words in the first reply so the user can correct it early; continue without waiting for confirmation. When direction is open, use concrete scenarios or contrasting outcomes rather than inventing a hidden true intent.
 2. **Check the context.** Inspect the smallest relevant set of code, designs, examples, policies, or observed behavior. Find reusable mechanisms and distinguish current facts from assumptions—including a user-supplied diagnosis or fix direction. Derive the likely mechanism from the symptom and the material before comparing it with that diagnosis, so the search is not confined to where the user pointed. Evidence that supports the premise lets work proceed within authorization; evidence that contradicts it calls for explaining the actual mechanism and redirecting before building on it; insufficient evidence calls for the smallest check that would settle it, run when within authorization and otherwise named as what remains unverified. Source code does not prove production activity or the user's desired behavior.
 3. **Trace effects.** Follow the proposed change through actual relationships: current mechanism → change → affected party or component → observable consequence. Test important terms and claims with concrete scenarios. Investigate likely hidden dependencies before concluding there are none.
-4. **Fill the right gap.** Look up discoverable facts. Explain unfamiliar mechanisms with task-specific examples before asking the user to choose. When a fork's answer is observable by running something (behavior, timing, output, performance), settle it with a bounded probe instead of asking the user. A throwaway script or prototype counts as investigation when it leaves project files unchanged and touches no shared data, external service, or live system; a check that reaches those needs authorization first. Ask about unavailable lived context and consequential goals or trade-offs no probe can settle; make routine implementation choices yourself.
+4. **Fill the right gap.** Look up discoverable facts. Explain unfamiliar mechanisms with task-specific examples before asking the user to choose. When a fork's answer is observable by running something (behavior, timing, output, performance), settle it with a bounded probe instead of asking the user. A probe needs no extra approval when it only reads—source, docs, or a read-only lookup—or runs a throwaway script that leaves project files, shared data, and live systems unchanged. It needs authorization first when it writes shared data, changes an external service, or touches a live system. Ask about unavailable lived context and consequential goals or trade-offs no probe can settle; make routine implementation choices yourself.
 5. **Shape and discuss.** Offer a proportionate design or correction with its basis and costs. Compare alternatives only when they differ meaningfully. Do not anchor a direction before the user has a basis for choosing.
 6. **Follow new evidence.** Update the understanding and affected recommendations after each discovery or answer. Follow newly exposed dependencies, invalidate superseded assumptions, and return findings to the conversation as soon as they support a useful decision.
 
-Research, explanation, diagnosis, and design can interleave. Sensemaking may produce a compact design; detailed implementation and specialist methods follow the task's needs and authorization, not a mandatory pipeline.
+Research, explanation, diagnosis, and design can interleave. Sensemaking may produce a compact design; detailed implementation and specialist methods follow the task's needs and authorization.
 
 ## Before substantive implementation
 
 Establish a proportionate basis for proceeding:
 
 - **Outcome:** who needs what observable change, and how the requested deliverable serves it.
-- **Boundaries:** constraints and choices whose different answers would materially change the result. Check relevant omissions and other plausible interpretations even when none are volunteered.
+- **Boundaries:** constraints and choices whose different answers would materially change the result, including a plausible reading the request did not spell out.
 - **Success evidence:** an example, observable behavior, or check that would demonstrate the intended result. Passing a check for a proxy does not establish the outcome; do not invent numeric targets for subjective work.
 
 Use available evidence first. If a user-owned choice remains, explain concrete consequences before asking. When the user cannot articulate it, offer examples or contrasting outcomes they can recognize. A missing choice that changes the goal or result is not a routine implementation default. Honor explicit delegation with a visible, bounded choice and its rationale; uncertainty alone is not delegation.
 
-At the transition to implementation, briefly state the understood outcome, how it will be checked, and any consequential assumption or unresolved dependency, grounded in the material actually examined. Incorporate this into an ordinary progress update; do not announce a mode, use a fixed form, or merely say "requirements are clear." Reuse an adequate explanation already given in the conversation.
+At the transition to implementation, say in the user-visible reply text before the first edit—not in a progress note between tool calls—the understood outcome, how it will be checked, and any consequential assumption or unresolved dependency, grounded in the material actually examined. Say it in ordinary prose. Do not use a fixed form or merely say "requirements are clear." If the conversation already states this adequately, a short pointer is enough.
 
-When the basis is sufficient and implementation is authorized, continue without another approval. Otherwise continue useful investigation and block only the work that depends on the unresolved choice. A deferred question or proposed experiment does not make dependent implementation ready.
+Block only the work that depends on an unresolved choice and cannot proceed within existing authorization. Continue the investigation and every independent or already-authorized part. A deferred question or proposed experiment does not make the dependent work ready.
 
 ## Keep the exploration useful
 
@@ -56,7 +56,7 @@ When the basis is sufficient and implementation is authorized, continue without 
 
 ## Read a method when needed
 
-These methods support the loop; they are not entry gates or mandatory stages.
+These methods support the loop. Read one when its need appears.
 
 | Need | Reference |
 |---|---|
@@ -68,8 +68,8 @@ These methods support the loop; they are not entry gates or mandatory stages.
 
 ## Finish at the task's boundary
 
-Stop optional excavation when the requested understanding, assessment, or design is usable: material premises and effects have been examined to a stated scope, and consequential unknowns are resolved, visibly delegated, explicitly deferred, or assigned a concrete verification step. Do not require every imaginable branch to be exhausted. An unresolved decision blocks only work that depends on it and cannot safely proceed within existing authorization.
+Stop optional excavation when the requested understanding, assessment, or design is usable: material premises and effects have been examined to a stated scope, and consequential unknowns are resolved, visibly delegated, explicitly deferred, or assigned a concrete verification step. Do not require every imaginable branch to be exhausted.
 
-Assessment can finish with open choices; delivering advice does not mean the user accepted it. Already-authorized execution continues with proportionate verification.
+Assessment can finish with open choices; delivering advice does not mean the user accepted it. Finish already-authorized execution with the verification the change needs.
 
 Keep short exchanges in context. Preserve current activity, authorization, decisions, evidence limits, and open items when needed; write files only when requested or authorized. Do not automatically create a PRD, glossary, ADR, plan, or reviewer task. Use specialist skills and independent agents only when their benefit and the host's delegation rules justify them.

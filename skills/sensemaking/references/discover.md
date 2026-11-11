@@ -15,15 +15,9 @@ Start from what is real now:
 
 Reflect this starting point and name the type of uncertainty: missing direction, missing vocabulary, missing examples, or missing judgment criteria.
 
-## Choose a stance implicitly
+## Adapt as you go
 
-Adapt without forcing an up-front mode menu:
-
-- **Facilitator** — draw out the user's own thinking when they have rich experience or explicitly do not want suggestions.
-- **Creative partner** — trade hypotheses and examples with the user; this is the default for most open exploration.
-- **Advisor** — research and teach first when the user is unfamiliar with the domain or asks for a recommendation.
-
-Change stance when needed and say why. Do not preserve a stance after it stops helping.
+When the user has rich experience or does not want suggestions, draw out their own thinking. When they are unfamiliar or ask for a recommendation, research and teach first. Otherwise trade hypotheses and examples. Shift when the current approach stops helping, without announcing a mode.
 
 ## Discover loop
 
@@ -46,16 +40,9 @@ Keep the teaching decision-relevant. The goal is not a domain lecture; it is to 
 
 To surface needs the user would not think to request, ask yourself what a top practitioner in this domain would do here that was not asked for, which raw material they would start from instead of a digested summary, which methods or tools they would use, and what other than the agent or the user would show the result is right. Offer what this reveals as candidates and leave the user's choices open.
 
-### 3. Generate multiple plausible frames
+### 3. Generate plausible frames
 
-Offer 2–4 meaningfully different interpretations of the opportunity. Each frame should state:
-
-- the change it tries to create;
-- who benefits;
-- what it optimizes;
-- what it deliberately gives up.
-
-Frames must differ in consequences, not wording. Include an invitation to combine or reject them. Do not label one “recommended” until evidence or user values justify it.
+When the opportunity can be read in more than one consequential way, offer interpretations that differ in the change they try to create, who benefits, what they optimize, and what they give up. Difference of wording is not a new frame. Invite the user to combine or reject them. Do not label one “recommended” until evidence or user values justify it.
 
 ### 4. Use recognition over recall
 
@@ -76,14 +63,7 @@ Begin convergence when the user can compare directions using criteria they under
 
 ## Questions that help
 
-Useful Discover questions reveal experience or values rather than implementation parameters:
-
-- “What happened recently that made this worth thinking about now?”
-- “If this went well, what would be different in your day or in someone else's?”
-- “Which example feels closest, and what part of it matters?”
-- “Which cost would you rather accept: X or Y?”
-
-Avoid generic prompts such as “What are your requirements?”, long questionnaires, and multiple-choice options the user lacks the knowledge to evaluate.
+Ask about experience or values rather than implementation parameters: what made this timely, what would be different if it went well, which example feels close, or which cost they would rather accept. Avoid generic prompts such as “What are your requirements?”, long questionnaires, and multiple-choice options the user lacks the knowledge to evaluate.
 
 ## Completion and handoff
 
@@ -94,4 +74,4 @@ Discover completes with one of:
 - an explicit exploratory hypothesis to test with research or prototype;
 - a deliberate decision not to pursue the space yet.
 
-Render a Direction Map when a durable summary helps. If the chosen direction now contains material decision forks, transition to Clarify. Do not jump directly to implementation planning unless the user's request and downstream workflow require it.
+When a durable summary helps, state the direction, the criteria, and what is still open in ordinary prose. If the chosen direction now contains material decision forks, transition to Clarify. Do not jump directly to implementation planning unless the user's request and downstream workflow require it.
