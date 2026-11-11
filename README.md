@@ -63,6 +63,14 @@ Discover、Clarify、Challenge 是 Agent 按需使用的方法，不是用户必
 
 ## 安装与触发
 
+可通过 Agent Skills CLI 一键安装到常用宿主：
+
+```bash
+npx skills add Xavier189/sensemaking
+```
+
+也可直接克隆并软链接到宿主技能目录（`~/.agents/skills` 覆盖 Codex、Cursor、Antigravity、Gemini CLI 等宿主，`~/.claude/skills` 覆盖 Claude Code）：
+
 ```bash
 git clone https://github.com/Xavier189/sensemaking.git
 cd sensemaking
@@ -88,11 +96,10 @@ ln -s "$(pwd)/skills/sensemaking" ~/.claude/skills/sensemaking
 | [跨领域示例](docs/examples.md) | 用具体输入校准触发、深度和范围 |
 | [维护资料](docs/internal/README.md) | 方法来源、评测与图源 |
 
-执行指令位于 [Skill 包](skills/sensemaking/SKILL.md)。静态检查可使用：
+执行指令位于 [Skill 包](skills/sensemaking/SKILL.md)。自包含静态检查（校验 frontmatter、`evals/evals.json`、关联 fixture、JSON 与文档相对链接）可使用：
 
 ```bash
-uv run --no-project --with pyyaml python /path/to/skill-creator/scripts/quick_validate.py skills/sensemaking
-uv run --no-project python -m json.tool evals/evals.json >/dev/null
+python3 scripts/validate.py
 ```
 
 [评测用例](evals/evals.json)分别检查触发、有效发现、知识解释、设计取舍、范围和多轮连续性。[运行约定](docs/internal/evaluation.md)区分静态检查、定向试跑与重复对照；提问数量不是效果指标。

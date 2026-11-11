@@ -22,7 +22,7 @@ This is a reasoning aid, not a required output table. An impact may justify reta
 - **Exceptions and recovery:** Use concrete failure, absence, delay, retry, or partial-success scenarios when relevant. Trace their effects instead of listing generic reliability concerns.
 - **Fit and verification:** Does the approach solve the stated problem? What observation would discriminate competing explanations or show the result is correct?
 
-Do not mechanically apply every lens. Be specific about which effects are established, plausible, or unexamined. Code presence, configured enablement, and live behavior are different evidence levels.
+Do not mechanically apply every lens. Be specific about which effects are established, plausible, or unexamined. Repository docs, plans, comments, and context files (`AGENTS.md`, specs) state claims until checked against the implementation; code presence, configured enablement, and live behavior remain distinct evidence levels.
 
 When a change's safety rests on one or two facts, name them and push each as far as is cheap along this ladder: asserted → pointed at the exact line or library source → failure path walked step by step → exercised by a script or test against the real code → reproduced in the running system. State where each fact stopped; an asserted fact is unproven.
 

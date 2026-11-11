@@ -2,7 +2,7 @@
 
 Sensemaking 组织上下文核验、影响探索、知识解释、对话与适度设计。根据剩余缺口选择能力，不把调查、设计或实现排成固定流水线。
 
-先保留用户请求的活动与已有授权。探讨中的调查结果要回到讨论；“继续”沿用当前活动；回答某个问题只确认对应决定。用户已要求决策解决后直接交付时，按原授权推进，不另加批准环节。
+先保留用户请求的活动与已有授权。探讨中的调查结果要回到讨论；“继续”沿用当前活动；回答某个问题只确认对应决定。用户已要求决策解决后直接交付时，按原授权推进，不另加批准环节。宿主处于只读或 Plan 模式时，按该边界交付核验、紧凑设计与待执行检查；未处于该模式时，不主动切入计划文件审批流。
 
 ## 六个独立维度
 
@@ -78,9 +78,10 @@ subagent 是 execution topology，不是下一阶段。只有以下条件成立�
 
 | 延续方式 | Carrier |
 |---|---|
-| 同一 agent、同一 session | conversation context |
+| 同一 agent、同一 session（短回路） | conversation context |
+| 同一 session 临近上下文压缩或从摘要恢复 | 对话内紧凑状态账本（防止摘要抹平 `assumed` / `invalidated` / 未决项） |
 | 同 session、换 agent/subagent | dispatch message 中的 inline Handoff Snapshot |
 | 新 session、隔天继续或长任务恢复 | 项目约定的 file / issue / task state |
 | 审批、审计或多人长期共享 | spec / ADR / issue / decision record |
 
-Snapshot 只保留下游需要的 ready state、confirmed decisions、boundaries、success evidence，以及仍为 `assumed`、`deferred`、`risk` 的项目。它描述“现在可以做什么”，不命令消费者进入固定 workflow。
+Snapshot 只保留下游需要的 ready state、confirmed decisions、当前执行授权与可写文件范围、已排除禁试路径、success evidence，以及仍为 `assumed`、`deferred`、`risk` 的项目。它描述“现在可以做什么”，不命令消费者进入固定 workflow。

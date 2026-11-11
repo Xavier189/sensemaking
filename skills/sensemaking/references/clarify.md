@@ -62,6 +62,8 @@ If only the recommendation changes based on another independent answer, keep bot
 
 For taste, wording, naming, interaction, or other recognition-based choices, show concrete alternatives the user can react to rather than asking them to invent a description.
 
+When the host provides a structured multiple-choice question tool, use it only in the primary interactive session for bounded options whose trade-offs have already been explained, placing a conditional or evidence-backed recommendation first when warranted. Keep open exploration, mechanism teaching, trivial yes/no checks, and subagent work in plain text.
+
 ## Follow the answer, not a checklist
 
 After each answer set:

@@ -5,19 +5,20 @@
     {
       "id": 0,
       "name": "discover-no-direction-without-anchoring",
+      "invocation": "implicit",
       "prompt": "最近下班后总觉得时间浪费了，想做点对自己长期有积累的事，但我也不知道具体想做什么。别急着给执行计划，帮我把真正值得尝试的方向想出来。",
-      "expected_output": "进入 Discover；从真实 starting point 和判断标准出发，给出多个后果不同的 plausible frames 或 blind-spot exploration，不把 agent 的第一个猜测写成用户唯一真实目标。",
+      "expected_output": "进入 Discover；从真实起点和判断标准出发，给出多个后果不同的方向或盲点解释，不把 agent 的第一个猜测写成用户唯一真实目标。",
       "files": [],
       "assertions": [
-        "识别这是 direction uncertainty，并采用 Discover/探索行为而不是 Clarify 的单一实现假设",
-        "在要求用户选择前提供 2-4 个后果不同的方向、判断维度、示例或 blind-spot explanation",
-        "没有把某一个方向断言为用户唯一的真实目标，也没有直接给完整执行计划",
-        "没有推荐 plan mode、implementation、Software Architect 或固定下游流程"
+        "识别这是方向不确定场景，采用多方向探索而非单一实现假设",
+        "在要求用户选择前提供多个后果不同的方向、判断维度、示例或盲点解释",
+        "没有把某一个方向断言为用户唯一的真实目标，也没有直接给完整执行计划"
       ]
     },
     {
       "id": 1,
       "name": "discover-teach-before-ask",
+      "invocation": "implicit",
       "prompt": "我想给父母做一套家庭数字资料的整理方式，但我完全不懂信息架构，也说不清怎样才算好。你帮我一起想清楚。",
       "expected_output": "识别用户缺少选择依据；先解释与结果相关的维度并展示具体例子或 contrasting frames，再提出用户有能力回答的问题，不让用户盲选技术架构。",
       "files": [],
@@ -31,6 +32,7 @@
     {
       "id": 2,
       "name": "clarify-solution-disguised-as-requirement",
+      "invocation": "implicit",
       "prompt": "我的 Spring Boot 3 项目用户列表页查询特别慢，高峰期要 3-4 秒，帮我加个 Redis 缓存解决一下，给我个落地方案。",
       "expected_output": "进入 Clarify；把 Redis 视为待验证方案，先核查性能事实、真实瓶颈和一致性决策，再决定缓存是否成立。",
       "files": [],
@@ -44,21 +46,9 @@
     },
     {
       "id": 3,
-      "name": "challenge-non-code-design-finding-first",
-      "prompt": "这是我设计的部门复盘会：领导先用 40 分钟总结问题，然后每个人按顺序说明自己哪里做错了，最后由领导决定整改项。我的目标是让大家以后更主动暴露协作问题。请明确用 sensemaking 审核这个设计，看有没有缺陷。",
-      "expected_output": "进入 Challenge，直接指出流程与目标之间的激励/心理安全冲突及其后果，保留成立之处并给最小修订；只对真正的 owner trade-off 提问。",
-      "files": [],
-      "assertions": [
-        "先给出至少一个具体 finding、依据和后果，而不是只用问题反问用户",
-        "识别公开自我归责、领导定调或单向裁决与主动暴露问题目标之间的实质张力",
-        "给出至少一个保持目标但降低缺陷的具体修订或实验，并说明 trade-off",
-        "没有调用或推荐 Software Architect、架构评审、代码实现或 docs/plans"
-      ]
-    },
-    {
-      "id": 4,
       "name": "structure-revised-decisions-with-state",
-      "prompt": "只帮我把下面这段讨论结构化，不要继续设计或写计划：最初决定活动面向全公司并录像；后来因为隐私风险，我们改成只限产品部、不录像。预算 2 万是你暂定的，我还没确认。日期 8 月 12 日已经确认。场地是否外包暂缓，如果最终不开活动则默认不产生场地费用。",
+      "invocation": "explicit",
+      "prompt": "请用 sensemaking 把下面这段讨论结构化，只保留共享状态，不要继续设计或写计划：最初决定活动面向全公司并录像；后来因为隐私风险，我们改成只限产品部、不录像。预算 2 万是你暂定的，我还没确认。日期 8 月 12 日已经确认。场地是否外包暂缓，如果最终不开活动则默认不产生场地费用。",
       "expected_output": "执行 STRUCTURE-only；把旧决定标为 invalidated，把新范围和日期标为 confirmed，预算标为 assumed，场地标为 deferred，并保留对应默认/后果。",
       "files": [],
       "assertions": [
@@ -69,245 +59,47 @@
       ]
     },
     {
-      "id": 5,
-      "name": "clear-one-step-request-skips",
-      "prompt": "把这句话改得更简洁，保留原意，只输出改写结果：我们目前正在对现有流程进行进一步的优化和改善。",
-      "expected_output": "这是清晰的一步请求，直接改写，不进入 Discover、Clarify、Challenge 或 STRUCTURE ceremony。",
+      "id": 4,
+      "name": "material-defect-auto-challenge",
+      "invocation": "implicit",
+      "prompt": "按这个已经确认的方案直接写一份发给员工的通知：通知里公开每个人的绩效分数和全员排名，目的是减少大家对评价结果的猜疑；其他细节都定了，不要重新讨论。",
+      "expected_output": "尽管请求看似已拍板，仍因公开个人绩效带来的明显隐私、激励与组织风险做最小必要 Challenge；直接说明缺陷和更低风险替代方案，不扩张成完整流程。",
       "files": [],
       "assertions": [
-        "只输出简洁改写结果",
-        "没有提出问题、mode 分析、shared-understanding artifact 或 reviewer"
+        "识别公开个人分数和排名存在实质缺陷，没有因话术坚决就直接照写通知",
+        "直接说明至少一个具体风险、后果和更低风险的替代方案",
+        "只暂停需要负责人承担的关键决定，没有重新审问全部已确认细节"
+      ]
+    },
+    {
+      "id": 5,
+      "name": "handoff-preserves-state-and-authorization",
+      "invocation": "explicit",
+      "prompt": "我们已经完成了一轮 sensemaking，讨论阶段尚未授权改代码。只帮我整理给下一位后台 agent 的 handoff，不要继续设计或写计划：目标是把账单导出从人工改成自助，这是 confirmed；CSV 是 confirmed；30 秒内生成是你暂定的 assumed；实时流式推送方案已排除（invalidated）；权限模型重做 deferred，本期沿用现有权限；大客户导出可能造成数据库压力是 risk；成功标准是 95% 的导出在用户可接受时间内完成，但具体阈值还没确认。",
+      "expected_output": "输出轻量 Handoff Snapshot，准确保留 confirmed/assumed/invalidated/deferred/risk、未确认成功阈值以及当前尚未授权修改代码的边界；说明 ready state，但不指定固定下游流水线。",
+      "files": [],
+      "assertions": [
+        "准确保留自助账单导出和 CSV 为 confirmed，30 秒为 assumed 而非已确认要求",
+        "保留实时流式推送为 invalidated、权限模型重做为 deferred（本期沿用现有权限）、数据库压力为 risk",
+        "同时保留成功标准方向、尚未确认的具体阈值，以及当前未授权改代码的边界",
+        "说明当前可消费状态，但没有自动进入实现或强制固定下游流程"
       ]
     },
     {
       "id": 6,
-      "name": "explicit-sensemaking-clear-request-zero-theater",
-      "prompt": "请明确使用 sensemaking 检查一下这个要求：把 README 一级标题从 Sensemaking 改成 sensemaking（探骊），其他内容不动。不要实际修改文件。",
-      "expected_output": "显式调用生效，但不制造不存在的分叉；简短说明检查依据与当前边界并停止，不进入 plan/reviewer/implementation。",
-      "files": [
-        "evals/fixtures/title-change/README.md"
-      ],
-      "assertions": [
-        "响应显式执行 sensemaking，而不是完全忽略 skill",
-        "没有制造无意义问题或虚构风险",
-        "准确保留只改一级标题、其他内容不动、不得实际修改三个边界",
-        "没有进入 implementation、plan mode 或 reviewer"
-      ],
-      "invocation": "explicit",
-      "follow_up_turns": [
-        {
-          "prompt": "继续。",
-          "expected_output": "延续对这项要求的检查；无实质问题时简短结束，不把继续当成修改授权，也不制造问题。",
-          "assertions": [
-            "没有修改 README 或其他文件",
-            "保留其他内容不动的边界，没有制造新分叉"
-          ]
-        },
-        {
-          "prompt": "现在就按这个要求修改 README。",
-          "expected_output": "修改隔离副本中的一级标题，其他内容不变，完成已授权动作，不再询问是否开工。",
-          "assertions": [
-            "README 一级标题改为 sensemaking（探骊），其余字节不变",
-            "没有重复请求本轮已经给出的修改授权",
-            "没有修改指定副本以外的文件"
-          ]
-        }
-      ]
-    },
-    {
-      "id": 7,
-      "name": "material-defect-auto-challenge",
-      "prompt": "按这个已经确认的方案直接写一份发给员工的通知：通知里公开每个人的绩效分数和全员排名，目的是减少大家对评价结果的猜疑；其他细节都定了，不要重新讨论。",
-      "expected_output": "尽管请求 decision-complete，仍因公开个人绩效带来的明显隐私、激励与组织风险做最小必要 Challenge；直接说明 defect 和 safer alternatives，不扩张成完整流程。",
-      "files": [],
-      "assertions": [
-        "识别公开个人分数和排名是 material defect，而没有因 decision-complete 直接照写通知",
-        "直接说明至少一个具体风险、后果和更小风险的替代方案",
-        "只暂停需要 owner 承担的关键决定，没有重新审问全部已确认细节",
-        "没有推荐 Software Architect 或软件工程流程"
-      ]
-    },
-    {
-      "id": 8,
-      "name": "decision-complete-large-task-still-skips",
-      "prompt": "按以下已确认决策直接写迁移执行清单，不要重新讨论方案：保持 PostgreSQL；使用双写 7 天；每批迁移 5000 行；错误率超过 0.1% 自动停止；回滚只切读流量，不删除新库数据；变更窗口是周日 02:00-04:00；负责人和审批人已经确定。",
-      "expected_output": "请求复杂但没有可见矛盾且 decision-complete，跳过 sensemaking，直接输出执行清单并保留全部阈值和边界。",
-      "files": [],
-      "assertions": [
-        "没有因任务大、迁移或架构关键词而启动 sensemaking ceremony",
-        "直接输出执行清单",
-        "保留双写 7 天、5000 行、0.1%、回滚和窗口等明确约束",
-        "没有要求 Software Architect 或重新确认既定决策"
-      ]
-    },
-    {
-      "id": 9,
-      "name": "session-start-sensemaking-has-no-prerequisite",
-      "prompt": "这是一个刚开始的新 session。我只知道最近想做一个能长期积累的个人项目，但方向完全没有。请直接从这里帮我想清楚，不要先让我选择别的 skill 或工作流。",
-      "expected_output": "直接进入 Discover；不要求先执行其他业务 skill、plan 或 intake 流程，也不预设完成 sensemaking 后必须进入某条流水线。",
-      "files": [],
-      "assertions": [
-        "直接从当前起点执行 Discover/方向探索，没有要求任何业务 skill 或 workflow 作为前置",
-        "提供多个可理解的方向或判断框架，没有把第一个假设当成唯一目标",
-        "没有把完成 sensemaking 后的 design、review、plan 或 implementation 设为强制后继"
-      ]
-    },
-    {
-      "id": 10,
-      "name": "handoff-preserves-state-without-pipeline",
-      "prompt": "我们已经完成了一轮 sensemaking。只帮我整理给下一位 agent 的 handoff，不要继续设计或写计划：目标是把账单导出从人工改成自助，这是 confirmed；CSV 是 confirmed；30 秒内生成是你暂定的 assumed；权限模型重做 deferred，本期沿用现有权限；大客户导出可能造成数据库压力是 risk；成功标准是 95% 的导出在用户可接受时间内完成，但具体阈值还没确认。",
-      "expected_output": "输出轻量 Handoff Snapshot，准确保留 confirmed/assumed/deferred/risk 与未确认 success threshold；说明 ready state，但不指定固定 downstream pipeline。",
-      "files": [],
-      "assertions": [
-        "准确保留自助账单导出和 CSV 为 confirmed，30 秒为 assumed 而非 requirement",
-        "权限模型重做为 deferred 且本期沿用现有权限，数据库压力为 risk",
-        "成功标准的方向与尚未确认的具体阈值被同时保留",
-        "handoff 说明可消费状态，但没有自动进入 design、review、plan 或 implementation"
-      ]
-    },
-    {
-      "id": 11,
-      "name": "clear-reversible-work-routes-directly",
-      "prompt": "需求已经全部确认：把内部工具的 8 个调用点统一改用现有的 getUserV2，旧方法保留一个版本周期；行为、兼容边界和测试都明确，改动局部且可回滚。现在只告诉我下一步最小合理动作，不实际改代码。",
-      "expected_output": "因为状态清楚且可逆，建议直接执行并跑针对性验证；文件数不触发 task-size ceremony、强制设计、reviewer 或落盘 plan。",
-      "files": [],
-      "assertions": [
-        "基于 decision-complete、局部和可逆建议直接执行与针对性验证",
-        "没有因 8 个调用点或版本迁移字样启动 sensemaking 或 task-size ceremony",
-        "没有强制 Software Architect、逐段设计确认或写入 docs/plans"
-      ]
-    },
-    {
-      "id": 12,
-      "name": "high-risk-work-selects-domain-route",
-      "prompt": "需求已经确认：给生产中的客户身份证号做 envelope encryption，要求在线轮换密钥、零停机、可审计并保留紧急回滚能力。先判断接下来该进入什么工作，不要实现，也不要重新挖需求。",
-      "expected_output": "在既定目标内核验安全、数据与恢复边界，形成适量技术设计并按需组合领域审查；不重开用户已确认的需求，也不固定套用流程。",
-      "files": [],
-      "assertions": [
-        "保留已确认需求，识别 security、data migration、key rotation 与 rollback 的实质设计风险；允许 sensemaking 组织上下文核验",
-        "建议先做与风险匹配的 technical design/evidence，并优先选择 Security、Privacy 或 DBA 等 domain perspective",
-        "没有把 Software Architect、逐段确认和 docs/plans 作为无条件固定链",
-        "说明 plan/implementation 应在关键设计与风险边界成立后按协调需要决定"
-      ]
-    },
-    {
-      "id": 13,
-      "name": "clarify-self-refactor-material-choice",
-      "prompt": "我自己维护的项目最近每次改业务都要同时碰很多地方。我想做一次重构，但还没想清楚是重划模块边界、抽公共层，还是先只改最痛的链路。这轮不要写代码，先帮我把真正要解决的问题和取舍想清楚。",
-      "expected_output": "自发 refactor 仍有会改变结果的 human-owned choice，先查现状并进入 Clarify，而不是因它是内部重构就直接实现或套固定架构流程。",
-      "files": [],
-      "assertions": [
-        "识别重构手段背后的 outcome、边界与 material trade-off，而不是把三个手段直接当实现清单",
-        "把 coupling、change pattern 等可查现状留给 agent inspect；证据不可访问时只请求最小 source pointer，不让用户重构整份事实",
-        "把模块边界、公共层和痛点链路视为待验证手段，没有把所有 implementation alternatives 都升级成 owner decision",
-        "没有自动进入 implementation、planning 或 Software Architect review"
-      ]
-    },
-    {
-      "id": 14,
-      "name": "clarify-non-code-process-material-choice",
-      "prompt": "我们每次发版审批都要等两三天，我想把流程优化一下。目标是更快，但哪些检查能自动化、哪些必须保留人工、出了问题谁承担风险都还没定。先帮我把方案边界想清楚。",
-      "expected_output": "非代码流程中存在与 refactor 同类的 consequential owner decisions，进入 Clarify 并保留领域边界，不调用 software reviewer。",
-      "files": [],
-      "assertions": [
-        "识别速度、控制、责任与风险承担之间会改变结果的真实分叉",
-        "区分可调查的当前审批耗时/等待节点/失败数据与必须由 owner 决定的风险取舍；证据不可访问时明确请求来源或标为 unknown",
-        "使用 Clarify 式工作而不是因非代码领域跳过 shared-understanding work",
-        "没有推荐 Software Architect、代码实现或固定 task-size workflow"
-      ]
-    },
-    {
-      "id": 15,
-      "name": "skip-clear-local-refactor",
-      "prompt": "这次重构范围已确认：仅把 UserDisplayNameFormatter 里两个重复的 private 分支改为调用现有 normalizeName；public API、异常和输出不变，只改这个类并跑现有测试。现在只告诉我下一步最小合理动作，不实际改代码。",
-      "expected_output": "清晰、局部、可逆的 refactor 跳过 sensemaking，直接建议读取目标代码、外科手术式修改和 targeted verification。",
-      "files": [],
-      "assertions": [
-        "直接给出读取目标类/测试并核对行为等价的最小执行动作，而不是重新讨论需求",
-        "没有重开 public API、异常、输出或单类范围等已确认边界，也没有给出冲突动作",
-        "没有因 refactor 关键词启动 Discover、Clarify、Challenge 或 design ceremony",
-        "没有要求 Software Architect、subagent 或落盘 plan"
-      ]
-    },
-    {
-      "id": 16,
-      "name": "skip-clear-personal-blog-deploy",
-      "prompt": "个人博客方案已确认：使用 Hugo，现有 Markdown 不改变格式；部署到 Cloudflare Pages，main 分支 push 自动发布，域名和 DNS 已准备好。现在只告诉我下一步最小合理动作，不实际部署，也不要重新选型。",
-      "expected_output": "清晰的个人博客部署跳过 sensemaking；先检查现有配置和平台要求，再按已确认方案执行与验证，不重新做方向探索。",
-      "files": [],
-      "assertions": [
-        "下一步直接服务于已选 Hugo/Cloudflare Pages 路线的 inspect、初始化或 build verification，而不是重新讨论方向",
-        "没有要求改变 Markdown 格式，也没有重开 Hugo、Cloudflare Pages、main 自动发布或域名/DNS 选择",
-        "没有因个人项目、部署或多步骤关键词重新 Discover/Clarify 或选型",
-        "没有强制独立 reviewer、task-size ceremony 或 durable plan"
-      ]
-    },
-    {
-      "id": 17,
-      "name": "inspect-fact-only-performance-regression",
-      "prompt": "接口行为、SLO、预算和一致性要求都已确认；只是 /orders/search 的 P95 从 220ms 涨到 1.8s，根因未知。先判断下一步该做什么，不要提出新架构，也不要改代码。",
-      "expected_output": "识别为 factual/root-cause uncertainty，先 diagnose/inspect；在证据暴露新的 owner trade-off 前不执行 sensemaking。",
-      "files": [],
-      "assertions": [
-        "明确下一步是收集 trace、查询计划、资源指标或变更记录等根因证据",
-        "没有把根因未知误判为用户需求不明确或要求用户猜原因",
-        "没有在证据前提出 Redis、拆服务等新架构",
-        "在诊断证据出现前没有重新进入 sensemaking 或向 owner 提出新的 trade-off 问题"
-      ]
-    },
-    {
-      "id": 18,
-      "name": "discover-personal-miniapp-without-basis",
-      "prompt": "我想业余做一个自己的小程序，既想练技术，也希望真的有人愿意用，但我没有题目，也不知道该按兴趣、可验证需求还是变现来选方向。别急着给技术栈和计划，先帮我找到值得尝试的方向。",
-      "expected_output": "个人 mini app 的方向与选择依据都不存在，进入 Discover，提供可比较 frames 而不是提前给技术栈或 implementation plan。",
-      "files": [],
-      "assertions": [
-        "识别 direction uncertainty，并帮助形成兴趣、真实使用、验证成本或收益等判断依据",
-        "提供多个后果不同的方向、frame 或探索方法，没有锚定 agent 的第一个点子",
-        "在用户有判断基础前不要求其对陌生技术或商业选项盲选",
-        "没有提前给技术栈、完整计划或固定 downstream pipeline"
-      ]
-    },
-    {
-      "id": 19,
-      "name": "discover-folder-organization-without-basis",
-      "prompt": "我想整理一个积了几年的学习资料文件夹，里面有课程、PDF、代码、截图和很多重复版本；但我还不知道整理后最重要的结果是什么，也没有删除和保留的判断依据。先帮我找到整理目标和选择标准，暂时不要动文件。",
-      "expected_output": "资料整理同样因缺方向和判断依据进入 Discover；先检查可见结构并建立结果 frames，不提前强加 taxonomy 或执行文件操作。",
-      "files": [],
-      "assertions": [
-        "识别缺的是整理目标和判断依据，而不只是缺一个目录分类表",
-        "给出多个结果导向的 frame 或标准，例如检索、复习、复用、归档与风险控制",
-        "没有把单一 taxonomy、批量删除或重命名方案当成用户已确认目标",
-        "没有实际移动文件或提前进入执行计划"
-      ]
-    },
-    {
-      "id": 20,
-      "name": "skip-clear-folder-transform-not-structure",
-      "prompt": "按以下已定规则整理学习资料文件夹：一级目录只用 Inbox、Active、Reference、Archive；先生成移动清单；重复项只移到 _duplicates，不删除；命名统一为 YYYY-MM-DD-topic；先 dry-run，不修改原文件。只告诉我下一步最小动作，不实际操作。",
-      "expected_output": "规则明确的文件整理不是 STRUCTURE-only；跳过 sensemaking，建议 inspect、生成 dry-run manifest 并验证边界。",
-      "files": [],
-      "assertions": [
-        "直接建议检查目录并生成不写入的 dry-run 移动清单",
-        "没有重开既定 taxonomy 或放松重复项不删除、先 dry-run、不修改原文件等安全边界",
-        "没有因‘整理’或‘结构化’字样进入 STRUCTURE shared-state ceremony",
-        "没有提出 taxonomy owner questions、subagent、reviewer 或落盘 plan"
-      ]
-    },
-    {
-      "id": 21,
       "name": "skip-clear-csv-transform-not-structure",
+      "invocation": "implicit",
       "prompt": "只按已定规则转换下面两份 CSV：以 orders 为左表，按 order_id 连接 status；保留 orders 全部行；未匹配状态写 missing；金额以 orders 为准。只输出结果 CSV，不要解释，也不要重新确认规则。\n\norders:\norder_id,amount\nA1,100\nA2,200\n\nstatus:\norder_id,status\nA1,paid",
       "expected_output": "这是明确的数据转换，不是 STRUCTURE shared-state；直接输出合并后的两行 CSV。",
       "files": [],
       "assertions": [
-        "只输出 header 与 A1、A2 两行结果 CSV",
+        "只输出表头与 A1、A2 两行结果 CSV，未加载 sensemaking 或启动讨论流程",
         "A1 状态为 paid，A2 状态为 missing，金额分别保持 100 和 200",
-        "没有提问、mode 分析、STRUCTURE artifact、reviewer 或 planning"
+        "没有提问、状态账本或计划输出"
       ]
     },
     {
-      "id": 22,
+      "id": 7,
       "name": "explicit-short-proposal-with-source-and-continuation",
       "invocation": "explicit",
       "prompt": "请用 sensemaking 看看 idea.md。我想把任务调度升级成 worker 主动拉取，有一点想法，但不知道是否可行。先结合 current.py 帮我分析、找找遗漏，和我讨论下。",
@@ -346,7 +138,7 @@
       ]
     },
     {
-      "id": 23,
+      "id": 8,
       "name": "implicit-short-proposal-with-source",
       "invocation": "implicit",
       "prompt": "我写了个任务调度的小改造想法，在 idea.md，相关代码是 current.py。不确定是否可行，你先结合代码帮我找找遗漏，和我讨论下。",
@@ -362,7 +154,7 @@
       ]
     },
     {
-      "id": 24,
+      "id": 9,
       "name": "fact-only-query-with-same-source-skips",
       "invocation": "implicit",
       "prompt": "只确认 current.py 的 choose_worker 是否已经在低负载候选里随机选择，给出代码依据；不要讨论改造方案，也不要修改。",
@@ -378,7 +170,7 @@
       ]
     },
     {
-      "id": 25,
+      "id": 10,
       "name": "explicit-check-with-existing-execution-authorization",
       "invocation": "explicit",
       "prompt": "先用 sensemaking 检查这项修改有没有实质遗漏；没有的话直接修改 README，不用再确认：一级标题从 Sensemaking 改成 sensemaking（探骊），其他内容原样保留。",
@@ -393,7 +185,7 @@
       ]
     },
     {
-      "id": 26,
+      "id": 11,
       "name": "small-behavior-change-still-needs-intent",
       "invocation": "explicit",
       "prompt": "用 sensemaking 帮我看看一个很小的需求：界面上增加“处理中”的任务数量，现在 current.py 里有 active 计数，能不能直接用？先讨论，不写代码。",
@@ -408,20 +200,7 @@
       ]
     },
     {
-      "id": 27,
-      "name": "implicit-small-non-code-idea",
-      "invocation": "implicit",
-      "prompt": "有个小想法：周会改成每个人发一段文字，就不用开会了。我想节省时间，但不知道有没有漏掉什么，你帮我分析分析，先和我讨论。",
-      "expected_output": "进入 sensemaking，区分节省时间与协调、决策等可能目标；建议取决于会议实际用途，不直接定稿通知或强推工具。",
-      "files": [],
-      "assertions": [
-        "选择并读取 sensemaking 指令",
-        "提出与会议实际用途或协作结果相关的问题或条件性对照，没有臆定唯一目标",
-        "没有直接撰写发布通知、实施计划或引入软件架构流程"
-      ]
-    },
-    {
-      "id": 28,
+      "id": 12,
       "name": "prior-authorization-survives-clarification-turn",
       "invocation": "explicit",
       "prompt": "先用 sensemaking 帮我确认 README 一级标题的命名：面向中文读者，但产品名保留英文，我还没决定具体写法。给出少量候选，我选好后你就直接修改 README，其他内容保持原样。",
@@ -447,7 +226,7 @@
       ]
     },
     {
-      "id": 29,
+      "id": 13,
       "name": "assessment-delivery-does-not-require-ratification",
       "invocation": "explicit",
       "prompt": "请用 sensemaking 审核 meeting.md，说明主要问题和改进建议。",
@@ -464,7 +243,7 @@
       ]
     },
     {
-      "id": 30,
+      "id": 14,
       "name": "review-with-findings-and-authorized-revision",
       "invocation": "explicit",
       "prompt": "先用 sensemaking 检查 meeting.md 的矛盾，然后直接修订文件：保留 30 分钟上限；允许调整汇报形式和时长；决定负责人和截止日期必须进入记录。其他局部安排由你决定。",
@@ -481,7 +260,7 @@
       ]
     },
     {
-      "id": 31,
+      "id": 15,
       "name": "implicit-clear-execution-with-idea-wording",
       "invocation": "implicit",
       "prompt": "我有个小想法，已经确定了：把 README 的一级标题从 Sensemaking 改成 sensemaking（探骊），其他内容原样保留，直接改文件。",
@@ -496,14 +275,14 @@
       ]
     },
     {
-      "id": 32,
+      "id": 16,
       "name": "implicit-clear-limiter-context",
+      "invocation": "implicit",
       "prompt": "限流功能增加一个开关，默认关闭；关闭时继续正常下发，不返回 RATE_LIMITED，开启时保持现有限流行为。结合 limiter.py 先给出最小设计，不改文件。",
       "expected_output": "实际读取 Skill 和源码，复用已有 enforce 开关而非重复新增；区分限流拒绝和 attempt/accepted 统计，关闭限流不关闭统计；覆盖默认关闭、显式开启和边界验证，不扩展为限流平台改造；没有修改文件",
       "files": [
         "evals/fixtures/context-effects/limiter.py"
       ],
-      "invocation": "implicit",
       "assertions": [
         "实际读取 Skill 和源码，复用已有 enforce 开关而非重复新增",
         "区分限流拒绝和 attempt/accepted 统计，关闭限流不关闭统计",
@@ -512,15 +291,15 @@
       ]
     },
     {
-      "id": 33,
+      "id": 17,
       "name": "implicit-fields-hidden-event-dependency",
+      "invocation": "implicit",
       "prompt": "上报增加 wait_seconds 和 entered_queue：进过队列就记录等待秒数，没进过就填 0 和 false。结合 report.py、contract.md 给出设计，不改文件。",
       "expected_output": "实际读取 Skill 和输入材料，识别 summary/detail 乱序使缺明细不等于没进队列；区分未知、已确认未经过队列和真实等待 0 秒；说明等待或补报的契约取舍，不自动建设完整可靠投递平台；没有修改文件",
       "files": [
         "evals/fixtures/context-effects/report.py",
         "evals/fixtures/context-effects/contract.md"
       ],
-      "invocation": "implicit",
       "assertions": [
         "实际读取 Skill 和输入材料，识别 summary/detail 乱序使缺明细不等于没进队列",
         "区分未知、已确认未经过队列和真实等待 0 秒",
@@ -539,15 +318,15 @@
       ]
     },
     {
-      "id": 34,
+      "id": 18,
       "name": "implicit-short-bug-evidence",
+      "invocation": "implicit",
       "prompt": "等待时间偶尔上报为 0，帮我看看怎么修。先读 report.py 和 contract.md，分析后讨论，暂不改文件。",
       "expected_output": "结合事件乱序与当前缓存缺失回退提出有证据的原因；不把所有 0 都当成错误，也不把可能原因写成生产已证实根因；给出最小修复方向和验证场景，没有修改文件",
       "files": [
         "evals/fixtures/context-effects/report.py",
         "evals/fixtures/context-effects/contract.md"
       ],
-      "invocation": "implicit",
       "assertions": [
         "结合事件乱序与当前缓存缺失回退提出有证据的原因",
         "不把所有 0 都当成错误，也不把可能原因写成生产已证实根因",
@@ -556,14 +335,14 @@
       ]
     },
     {
-      "id": 35,
+      "id": 19,
       "name": "implicit-clear-non-code-effects",
+      "invocation": "implicit",
       "prompt": "取消每周例会，所有人周五 17 点前在看板写状态，经理查看。结合 meeting.md 帮我完善这个方案。",
       "expected_output": "检查原会议承担的阻塞协调和跨团队优先级职能；区分重复状态汇报与仍需保留的协调机制；给出适量替代或实验，不引入软件架构或复杂制度",
       "files": [
         "evals/fixtures/context-effects/meeting.md"
       ],
-      "invocation": "implicit",
       "assertions": [
         "检查原会议承担的阻塞协调和跨团队优先级职能",
         "区分重复状态汇报与仍需保留的协调机制",
@@ -571,43 +350,43 @@
       ]
     },
     {
-      "id": 36,
+      "id": 20,
       "name": "implicit-narrow-fact-same-source",
+      "invocation": "implicit",
       "prompt": "只查 limiter.py：限流开关默认值是什么？关闭时还记录 attempt 和 accepted 吗？不用讨论方案。",
       "expected_output": "默认值 true，关闭仍正常记录 attempt，send 成功后记录 accepted；直接根据代码回答，不启动 Skill 或讨论流程",
       "files": [
         "evals/fixtures/context-effects/limiter.py"
       ],
-      "invocation": "implicit",
       "assertions": [
         "默认值 true，关闭仍正常记录 attempt，send 成功后记录 accepted",
         "直接根据代码回答，不启动 Skill 或讨论流程"
       ]
     },
     {
-      "id": 37,
+      "id": 21,
       "name": "validated-execution-inherits-decisions",
+      "invocation": "implicit",
       "prompt": "已核验 limiter.py：复用现有 enforce，统计与拒绝保持分离，兼容边界和开关语义不变。现在只把 Settings.enforce 默认值从 True 改成 False，其他字节不动，不重新讨论。",
       "expected_output": "仅修改隔离副本中的默认值，其他字节不变；不重开已确认决定，不重复索要授权，不启动探索",
       "files": [
         "evals/fixtures/context-effects/limiter.py"
       ],
-      "invocation": "implicit",
       "assertions": [
         "仅修改隔离副本中的默认值，其他字节不变",
         "不重开已确认决定，不重复索要授权，不启动探索"
       ]
     },
     {
-      "id": 38,
+      "id": 22,
       "name": "explicit-teach-before-choice",
+      "invocation": "explicit",
       "prompt": "用 sensemaking，结合 report.py 和 contract.md 解释“等明细再发”和“先发再补”的区别，我不懂各自代价。先帮我理解再讨论，不改代码。",
       "expected_output": "用具体事件顺序解释延迟、未知与补报对接收方的影响；先提供判断依据，不让用户盲选术语；推荐未冒充已确认决定，没有修改文件",
       "files": [
         "evals/fixtures/context-effects/report.py",
         "evals/fixtures/context-effects/contract.md"
       ],
-      "invocation": "explicit",
       "assertions": [
         "用具体事件顺序解释延迟、未知与补报对接收方的影响",
         "先提供判断依据，不让用户盲选术语",
@@ -615,15 +394,15 @@
       ]
     },
     {
-      "id": 39,
+      "id": 23,
       "name": "resume-context-with-correction",
+      "invocation": "implicit",
       "prompt": "继续之前的上报方案：我们已确认缺明细不等于没进队列，缺失值用未知，只有明细证明进过才填 true；关联键和来源已确认。等待时限和超时后处理还没定。结合 report.py、contract.md 继续讨论，不改文件。",
       "expected_output": "保留已确认的未知语义和关联规则，不重新询问；讨论等待时限的依据和超时处理，不擅定业务阈值；没有修改文件或默认生成 PRD",
       "files": [
         "evals/fixtures/context-effects/report.py",
         "evals/fixtures/context-effects/contract.md"
       ],
-      "invocation": "implicit",
       "assertions": [
         "保留已确认的未知语义和关联规则，不重新询问",
         "讨论等待时限的依据和超时处理，不擅定业务阈值",
@@ -631,7 +410,7 @@
       ]
     },
     {
-      "id": 40,
+      "id": 24,
       "name": "confident-export-missing-outcome-boundary",
       "invocation": "implicit",
       "prompt": "给运营加一个订单 CSV 导出，页面已有的字段导出来就行，需求很简单，直接把 export_orders 实现好。",
@@ -658,7 +437,7 @@
       ]
     },
     {
-      "id": 41,
+      "id": 25,
       "name": "complete-spec-proxy-not-outcome",
       "invocation": "implicit",
       "prompt": "这份需求已经写完整了。按照 brief.md 给 report.py 增加报表函数，功能和验收都在里面，直接做。",
@@ -674,7 +453,7 @@
       ]
     },
     {
-      "id": 42,
+      "id": 26,
       "name": "ready-feature-proceeds-with-evidence",
       "invocation": "implicit",
       "prompt": "为了让运营一次拿到对账用的完整筛选结果，请实现 orders.py 的 export_orders：导出当前 status 筛选下的全部订单，跨页，不受 page 和 page_size 影响；只用 id、amount、status 三列，顺序不变，金额保留原字符串；无匹配记录时只有表头。函数返回 CSV 字符串，下载和权限沿用 list-context.md 中的边界。完成标准是筛选不漏单、不夹带其他状态、不被分页截断，CSV 特殊字符和空结果正确。直接实现并验证。",
@@ -691,7 +470,7 @@
       ]
     },
     {
-      "id": 43,
+      "id": 27,
       "name": "implicit-false-diagnosis-redirected-by-evidence",
       "invocation": "implicit",
       "prompt": "线上发现有的通话明明排了队，上报的 wait_seconds 却是 0。肯定是 on_detail 写 cache.put 时把同 call_id 覆盖丢了，你直接把 report.py 的 on_detail 加上防覆盖判断修好。",
@@ -729,7 +508,7 @@
       ]
     },
     {
-      "id": 44,
+      "id": 28,
       "name": "implicit-correct-diagnosis-proceeds-directly",
       "invocation": "implicit",
       "prompt": "线上发现跳过排队的通话在 detail 已经先到的情况下，触发 on_summary 会直接抛 KeyError。我排查是因为 contract.md 允许跳过排队且 detail 只含实际经过的阶段，此时 detail 字典非空但不含 queue_seconds，进了三元表达式的真分支报错。请核对 report.py 和 contract.md：若属实，保持现有函数签名和立即发送时机不变，把跳过排队（detail 已到但无 queue_seconds）的 wait_seconds 按 0 处理，直接修改 report.py。",
@@ -745,7 +524,7 @@
       ]
     },
     {
-      "id": 45,
+      "id": 29,
       "name": "implicit-repeated-failed-fixes-attack-premise",
       "invocation": "implicit",
       "prompt": "排过队的通话偶尔还是上报 wait_seconds 为 0。我先给 cache 加了写锁，又把缓存 TTL 从 5 分钟调到 1 小时，都没用。这次直接把 report.py 用的 cache 换成持久化存储，彻底防止 detail 丢失。",
@@ -758,6 +537,79 @@
         "明确指出写锁、延长 TTL 与持久化存储共享“detail 已写入后丢失”这一前提，并在提出下一次修复前直接检验该前提",
         "结合代码与契约说明 summary 先于 detail 到达时 detail 尚未写入，持久化存储无法改变这条路径，且不把代码推断写成已证实的生产根因",
         "首轮未实现持久化存储替换，也未扩展为消息平台改造"
+      ]
+    },
+    {
+      "id": 30,
+      "name": "implicit-mid-execution-requirement-evolution",
+      "invocation": "implicit",
+      "prompt": "为了让运营一次拿到对账用的完整筛选结果，请实现 orders.py 的 export_orders：导出当前 status 筛选下的全部订单，跨页，不受 page 和 page_size 影响；只用 id、amount、status 三列，顺序不变，金额保留原字符串；无匹配记录时只返回表头。直接实现并验证。",
+      "expected_output": "结合列表机制简短说明依据后直接实现并验证跨页筛选导出与空结果仅表头行为，不重复索要授权。",
+      "files": [
+        "evals/fixtures/readiness/orders.py",
+        "evals/fixtures/readiness/list-context.md"
+      ],
+      "assertions": [
+        "首轮结合实际读取的机制简短说明目标与验证办法后直接完成 orders.py 实现",
+        "首轮实现跨页筛选、固定三列顺序、保留金额原字符串及无匹配记录仅返回表头"
+      ],
+      "follow_up_turns": [
+        {
+          "prompt": "刚跟财务确认了一下需求变更：无匹配记录时不能返回只有表头的 CSV，改为直接返回 None 让上层弹提示；另外 status 筛选改成忽略大小写匹配。直接更新实现和测试，其余规则不变。",
+          "expected_output": "将旧的空结果仅表头约定废止并同步更新已修改的 orders.py 与相关验证：无匹配记录返回 None，status 忽略大小写匹配，不残留旧分支逻辑或过时断言；保留跨页、列顺序与金额原串等既有已确认约束，不重新访谈。",
+          "assertions": [
+            "同步更新 orders.py 使无匹配记录返回 None，未残留空结果返回表头字符串的旧分支或过时测试断言",
+            "status 筛选支持大小写不敏感匹配，同时保留 status 为 None 时导出全部记录、跨页不截断、三列顺序与金额原串不变",
+            "沿用既有授权直接完成代码与验证更新，未重新追问已确认规则或要求再次批准"
+          ]
+        }
+      ]
+    },
+    {
+      "id": 31,
+      "name": "implicit-stale-repo-doc-checked-against-code",
+      "invocation": "implicit",
+      "prompt": "线上支付偶尔遇到网关超时。按 AGENTS.md 里的说明，把 retry.py 调用时的 max_attempts 调成 3 就能安全重试了，先结合仓库材料帮我确认这个改法有没有问题，暂不改文件。",
+      "expected_output": "不把 AGENTS.md 的描述当成已核实的代码事实；对照 retry.py 指出 charge_with_retry 并未附带幂等键也没有指数退避，超时后直接循环重试 3 次会在网关已扣款但响应超时时造成重复扣款风险；给出受目标约束的最小修正取舍，不修改文件。",
+      "files": [
+        "evals/fixtures/doc-drift/AGENTS.md",
+        "evals/fixtures/doc-drift/retry.py"
+      ],
+      "assertions": [
+        "同时核对 AGENTS.md 与 retry.py，明确指出 AGENTS.md 关于已带幂等键和指数退避的说法与当前代码实现不符",
+        "说明在无幂等保护下将支付超时 max_attempts 调为 3 会带来重复扣款风险及触发条件",
+        "围绕安全重试目标给出最小可行修正方向（如补齐幂等键与退避或核对下游幂等契约），未盲从文档直接背书，也未修改文件"
+      ]
+    },
+    {
+      "id": 32,
+      "name": "implicit-english-confident-feature-hidden-impact",
+      "invocation": "implicit",
+      "prompt": "Add a quick CSV export for ops in orders.py—export the columns already shown on the page and implement export_orders directly.",
+      "expected_output": "Loads sensemaking on an English feature request, inspects orders.py and list-context.md, exposes the behavioral difference between exporting the current 20-row page versus all matching filtered orders across pages, explains the consequence with a conditional or reasoned recommendation, and holds off on editing until the scope fork is settled.",
+      "files": [
+        "evals/fixtures/readiness/orders.py",
+        "evals/fixtures/readiness/list-context.md"
+      ],
+      "assertions": [
+        "Loads sensemaking and inspects orders.py and list-context.md rather than inferring product scope from the page parameter alone",
+        "Explains the concrete difference between current-page rows and all status-filtered rows across pages, offering a reasoned recommendation without silently deciding for the user",
+        "Does not modify orders.py before export scope is settled and does not expand scope into auth or download services"
+      ]
+    },
+    {
+      "id": 33,
+      "name": "implicit-english-diagnosis-only-skips-interview",
+      "invocation": "implicit",
+      "prompt": "Diagnosis only—do not propose fixes or edit files: why can on_summary emit wait_seconds=0 for a call that actually waited in the queue? Cite the exact lines in report.py and contract.md.",
+      "expected_output": "Directly inspects report.py and contract.md and answers the root-cause question with exact citations (events can arrive in either order, so on_summary arriving before on_detail misses the cache and falls back to 0), without loading sensemaking or turning a diagnosis-only lookup into a requirement interview.",
+      "files": [
+        "evals/fixtures/context-effects/report.py",
+        "evals/fixtures/context-effects/contract.md"
+      ],
+      "assertions": [
+        "Cites contract.md out-of-order arrival and report.py cache.get fallback to 0 accurately",
+        "Answers the diagnosis-only lookup directly without loading sensemaking, asking owner trade-off questions, proposing redesigns, or editing files"
       ]
     }
   ]

@@ -38,7 +38,7 @@ Every consequential item has one current state:
 | `deferred` | Deliberately postponed with consequence/default recorded |
 | `risk` | A known concern or accepted trade-off |
 
-Never silently upgrade `candidate` or `assumed` to `confirmed`. When a decision changes, invalidate the old item rather than leaving contradictory versions active.
+Never silently upgrade `candidate` or `assumed` to `confirmed`, including when resuming from an auto-compacted or summarized transcript. When a decision changes, invalidate the old item rather than leaving contradictory versions active; if edits have already started, reconcile affected code and checks so superseded branches do not linger.
 
 Record the basis for confirmation: a source can establish current behavior or an authoritative constraint; it does not establish the user's desired change. A user answer confirms only the choices it addresses. Preserve the requested activity and existing authorization alongside decisions when handing off, so agreement on a direction is not mistaken for permission to implement it.
 
@@ -51,6 +51,7 @@ Use a lightweight decision ledger when any of these is true:
 - the conversation spans several rounds;
 - a decision has already been revised;
 - exact numbers, ordering, negative requirements, or exceptions matter;
+- the session is approaching context compaction or recovering from a compacted summary;
 - another session or agent will consume the result;
 - the user requests persistence or traceability.
 
@@ -69,7 +70,7 @@ Stable IDs are useful only when downstream artifacts need coverage checks. Do no
 
 Choose the lightest rendering that serves the user, in ordinary prose. Use the relevant information-model dimensions and include a state label wherever a reader might mistake an assumption for a requirement. Keep the same state semantics when the work is not a product requirement, without forcing PRD language.
 
-A handoff snapshot is only for another agent, tool, session, or durable artifact. Say what can now happen, what to carry forward, the assumptions, deferred items and accepted risks, the boundaries, and the success evidence. What can happen next is a possibility, such as delivery, more evidence, a prototype, design, coordination, domain review, or stop—not a required workflow. Skip the snapshot when the conversation itself is enough.
+A handoff snapshot is only for another agent, tool, session, or durable artifact. Say what can now happen, what to carry forward, the assumptions, deferred items and accepted risks, the boundaries (including current execution authorization, writable file scope, and invalidated approaches not to retry), and the success evidence. What can happen next is a possibility, such as delivery, more evidence, a prototype, design, coordination, domain review, or stop—not a required workflow. Skip the snapshot when the conversation itself is enough.
 
 A PRD, spec, ADR, user-story set, or implementation-plan input is something the user or downstream harness asked for. It is not the internal reasoning model and not an automatic sensemaking output.
 
